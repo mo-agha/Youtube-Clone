@@ -5,7 +5,6 @@ const UserSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     email: {
       type: String,
@@ -14,7 +13,6 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     image: {
       type: String,
@@ -25,6 +23,10 @@ const UserSchema = new mongoose.Schema(
     },
     subscribedUsers: {
       type: [String],
+    },
+    fromGoogle: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

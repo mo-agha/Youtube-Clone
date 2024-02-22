@@ -1,0 +1,4 @@
+{
+  "typescript.suggest.autoImports": true, // or
+  "javascript.suggest.autoImports": true
+}

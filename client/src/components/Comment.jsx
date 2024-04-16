@@ -1,5 +1,7 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { format } from "timeago.js";
 
 const Container = styled.div`
   display: flex;
@@ -38,20 +40,32 @@ const Text = styled.span`
   font-size: 14px;
 `;
 
-const Comment = () => {
+const Comment = ({ comment }) => {
+  const [channel, setChannel] = useState({});
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchComment = async () => {
+      try {
+        const res = await axios.get(`/users/find/${comment.userId}`);
+        setChannel(res.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchComment();
+  }, [comment.userId]);
+
   return (
     <Container>
-      <Avatar src="https://yt3.googleusercontent.com/ytc/AIf8zZQjMbV3-9TaCwDvPAcpnLZpBottwufJjkYb2GAr=s176-c-k-c0x00ffffff-no-rj" />
+      {error}
+      <Avatar src={channel.image} />
       <CommentDetails>
         <Name>
-          Mo Channel<Date>2 days ago</Date>
+          {channel.name}
+          <Date>{format(comment.createdAt)}</Date>
         </Name>
-        <Text>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. A iste ipsam
-          aspernatur soluta dolore mollitia fugit odio nostrum, ab quidem nihil
-          animi nobis dignissimos officia magni inventore est commodi
-          architecto.
-        </Text>
+        <Text>{comment.text}</Text>
       </CommentDetails>
     </Container>
   );

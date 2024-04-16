@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
 import Login from "./pages/Login";
+import Search from "./pages/Search";
 
 const Container = styled.div`
   display: flex;
@@ -40,6 +41,7 @@ function App() {
                     path="subscribers"
                     element={<Home type="subscribers" />}
                   />
+                  <Route path="search" element={<Search />} />
                   <Route path="login" element={<Login />} />
                   <Route path="video">
                     <Route path=":id" element={<Video />}></Route>
